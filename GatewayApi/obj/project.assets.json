@@ -2689,11 +2689,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/timur/Dev/RecommendationSystem/GatewayApi/GatewayApi.csproj",
+      "projectUniqueName": "/home/timur/Dev/RecommendationSystemServer/GatewayApi/GatewayApi.csproj",
       "projectName": "GatewayApi",
-      "projectPath": "/home/timur/Dev/RecommendationSystem/GatewayApi/GatewayApi.csproj",
+      "projectPath": "/home/timur/Dev/RecommendationSystemServer/GatewayApi/GatewayApi.csproj",
       "packagesPath": "/home/timur/.nuget/packages/",
-      "outputPath": "/home/timur/Dev/RecommendationSystem/GatewayApi/obj/",
+      "outputPath": "/home/timur/Dev/RecommendationSystemServer/GatewayApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/timur/.nuget/NuGet/NuGet.Config"

@@ -1193,11 +1193,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/timur/Dev/RecommendationSystem/AnalyticsApi/AnalyticsApi.csproj",
+      "projectUniqueName": "/home/timur/Dev/RecommendationSystemServer/AnalyticsApi/AnalyticsApi.csproj",
       "projectName": "AnalyticsApi",
-      "projectPath": "/home/timur/Dev/RecommendationSystem/AnalyticsApi/AnalyticsApi.csproj",
+      "projectPath": "/home/timur/Dev/RecommendationSystemServer/AnalyticsApi/AnalyticsApi.csproj",
       "packagesPath": "/home/timur/.nuget/packages/",
-      "outputPath": "/home/timur/Dev/RecommendationSystem/AnalyticsApi/obj/",
+      "outputPath": "/home/timur/Dev/RecommendationSystemServer/AnalyticsApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/timur/.nuget/NuGet/NuGet.Config"

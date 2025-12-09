@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1ey6yYyaTkM=",
+  "dgSpecHash": "HIafqJh2elM=",
   "success": true,
-  "projectFilePath": "/home/timur/Dev/RecommendationSystem/AnalyticsApi/AnalyticsApi.csproj",
+  "projectFilePath": "/home/timur/Dev/RecommendationSystemServer/AnalyticsApi/AnalyticsApi.csproj",
   "expectedPackageFiles": [
     "/home/timur/.nuget/packages/microsoft.aspnetcore.openapi/8.0.21/microsoft.aspnetcore.openapi.8.0.21.nupkg.sha512",
     "/home/timur/.nuget/packages/microsoft.entityframeworkcore/8.0.11/microsoft.entityframeworkcore.8.0.11.nupkg.sha512",
