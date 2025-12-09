@@ -1,0 +1,58 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 7114
+      POSTGRES_DB: recommendationdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  aiserver:
+    build:
+      context: ./AIService
+      dockerfile: Dockerfile
+    container_name: ai-service
+    restart: always
+    ports:
+      - "8000:8000"
+
+  gatewayapi:
+    build:
+      context: .
+      dockerfile: GatewayApi/Dockerfile
+    container_name: gateway-api
+    restart: always
+    depends_on:
+      - postgres
+      - aiserver
+    environment:
+      # DB connection string (inside Docker network host is 'postgres', not 'localhost')
+      - ConnectionStrings__Default=Host=postgres;Port=5432;Database=recommendationdb;Username=admin;Password=7114
+
+      # AI service base URL (inside Docker network use service name 'aiserver')
+      - AiService__BaseUrl=http://aiserver:8000
+
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5081:8080"
+
+  analyticsapi:
+    build:
+      context: .
+      dockerfile: AnalyticsApi/Dockerfile
+    container_name: analytics-api
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - ConnectionStrings__Default=Host=postgres;Port=5432;Database=recommendationdb;Username=admin;Password=7114
+    ports:
+      - "5090:8080"
+
+volumes:
+  pgdata:
