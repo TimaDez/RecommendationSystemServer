@@ -1,1 +1,11 @@
-{"Version":1,"Hash":"EjuVu4xGhmyEi8Gwh2RMen+6ZoDMwbRNZDew8SSMxxs=","Source":"GatewayApi","BasePath":"_content/GatewayApi","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}
+{
+  "Version": 1,
+  "Hash": "BRNBJeafzpIpSRoZknu1dTDbpnaSLyBNp59Xj6gdwoQ=",
+  "Source": "GatewayApi",
+  "BasePath": "_content/GatewayApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

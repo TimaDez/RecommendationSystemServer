@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: 7114
       POSTGRES_DB: recommendationdb
     ports:
-      - "55432:5432"
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -19,7 +19,7 @@ services:
     #container_name: ai-service
     restart: always
     ports:
-      - "8000:8000"
+      - "8001:8000"
 
   gatewayapi:
     build:
@@ -45,14 +45,14 @@ services:
     build:
       context: .
       dockerfile: AnalyticsApi/Dockerfile
-    #container_name: analytics-api
     restart: always
     depends_on:
       - postgres
     environment:
       - ConnectionStrings__Default=Host=postgres;Port=5432;Database=recommendationdb;Username=admin;Password=7114
     ports:
-      - "5090:8080"
+      - "5091:8080"
+
 
 volumes:
   pgdata:

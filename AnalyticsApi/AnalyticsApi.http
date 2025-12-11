@@ -1,4 +1,4 @@
-@AnalyticsApi_HostAddress = http://localhost:5044
+@AnalyticsApi_HostAddress = http://localhost:5236
 
 GET {{AnalyticsApi_HostAddress}}/weatherforecast/
 Accept: application/json
