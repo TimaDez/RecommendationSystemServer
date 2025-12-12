@@ -1175,19 +1175,19 @@
     ]
   },
   "packageFolders": {
-    "/home/timur/.nuget/packages/": {}
+    "C:\\Users\\timur\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/timur/Dev/RecommendationSystemServer/AnalyticsApi/AnalyticsApi.csproj",
+      "projectUniqueName": "C:\\Dev\\RecommendationSystemServer\\AnalyticsApi\\AnalyticsApi.csproj",
       "projectName": "AnalyticsApi",
-      "projectPath": "/home/timur/Dev/RecommendationSystemServer/AnalyticsApi/AnalyticsApi.csproj",
-      "packagesPath": "/home/timur/.nuget/packages/",
-      "outputPath": "/home/timur/Dev/RecommendationSystemServer/AnalyticsApi/obj/",
+      "projectPath": "C:\\Dev\\RecommendationSystemServer\\AnalyticsApi\\AnalyticsApi.csproj",
+      "packagesPath": "C:\\Users\\timur\\.nuget\\packages\\",
+      "outputPath": "C:\\Dev\\RecommendationSystemServer\\AnalyticsApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/timur/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\timur\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -1205,7 +1205,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -1251,7 +1257,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.121/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

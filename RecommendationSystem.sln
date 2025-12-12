@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GatewayApi", "GatewayApi\Ga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyticsApi", "AnalyticsApi\AnalyticsApi.csproj", "{F51135D1-FFDB-4F10-879C-D657F358639B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthApi", "AuthApi\AuthApi.csproj", "{84D29779-19DE-4773-A73E-B0645D33DB0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{F51135D1-FFDB-4F10-879C-D657F358639B}.Release|x64.Build.0 = Release|Any CPU
 		{F51135D1-FFDB-4F10-879C-D657F358639B}.Release|x86.ActiveCfg = Release|Any CPU
 		{F51135D1-FFDB-4F10-879C-D657F358639B}.Release|x86.Build.0 = Release|Any CPU
+		{84D29779-19DE-4773-A73E-B0645D33DB0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84D29779-19DE-4773-A73E-B0645D33DB0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84D29779-19DE-4773-A73E-B0645D33DB0B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{84D29779-19DE-4773-A73E-B0645D33DB0B}.Debug|x64.Build.0 = Debug|Any CPU
+		{84D29779-19DE-4773-A73E-B0645D33DB0B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{84D29779-19DE-4773-A73E-B0645D33DB0B}.Debug|x86.Build.0 = Debug|Any CPU
+		{84D29779-19DE-4773-A73E-B0645D33DB0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84D29779-19DE-4773-A73E-B0645D33DB0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84D29779-19DE-4773-A73E-B0645D33DB0B}.Release|x64.ActiveCfg = Release|Any CPU
+		{84D29779-19DE-4773-A73E-B0645D33DB0B}.Release|x64.Build.0 = Release|Any CPU
+		{84D29779-19DE-4773-A73E-B0645D33DB0B}.Release|x86.ActiveCfg = Release|Any CPU
+		{84D29779-19DE-4773-A73E-B0645D33DB0B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

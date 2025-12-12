@@ -53,6 +53,20 @@ services:
     ports:
       - "5091:8080"
 
+  authapi:
+    build:
+      context: .
+      dockerfile: AuthApi/Dockerfile
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - ConnectionStrings__Default=Host=postgres;Port=5432;Database=recommendationdb;Username=admin;Password=7114
+      - Jwt__Key=super_dev_secret_change_me
+      - Jwt__Issuer=RecommendationSystem
+      - Jwt__Audience=RecommendationSystemClients
+    ports:
+      - "5071:8080"
 
 volumes:
   pgdata:
