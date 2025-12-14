@@ -1,11 +1,11 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using AuthApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-
 namespace AuthApi.Controllers;
 
 [ApiController]
@@ -21,15 +21,34 @@ public class AuthController : ControllerBase
         _config = config;
     }
 
-    public record SignUpRequest(string Email, string Password);
+    public record SignUpRequest
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; init; }
+
+        [Required]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters.")]
+        public string Password { get; init; }
+    }
+    
+    //public record SignUpRequest(string Email, string Password);
     public record LoginRequest(string Email, string Password);
     public record AuthResponse(string Token, string Email);
 
     [HttpPost("signup")]
     public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
     {
+        Console.WriteLine($"User input email: {request.Email}, password: {request.Password}");
         var email = request.Email.Trim().ToLowerInvariant();
-
+        Console.WriteLine($"Normalized email: {email}");
+        
+        //TODO: add proper email validation
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         if (await _db.Users.AnyAsync(u => u.Email == email))
             return Conflict("User with this email already exists.");
 

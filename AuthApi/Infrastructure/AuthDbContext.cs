@@ -12,7 +12,7 @@ public class AuthDbContext : DbContext
 public class AuthUser
 {
     public int Id { get; set; }
-    public string Email { get; set; } = default!;
-    public string PasswordHash { get; set; } = default!;
+    public string Email { get; set; } = null!;
+    public string PasswordHash { get; set; } = null!;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
