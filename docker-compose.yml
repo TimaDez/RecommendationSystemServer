@@ -4,6 +4,7 @@ services:
     #container_name: postgres-db
     restart: always
     environment:
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=recommendationdb;Username=admin;Password=7114"
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 7114
       POSTGRES_DB: recommendationdb
