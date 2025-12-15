@@ -1483,19 +1483,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\timur\\.nuget\\packages\\": {}
+    "/home/timur/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dev\\RecommendationSystemServer\\AuthApi\\AuthApi.csproj",
+      "projectUniqueName": "/home/timur/Dev/RecommendationSystemServer/AuthApi/AuthApi.csproj",
       "projectName": "AuthApi",
-      "projectPath": "C:\\Dev\\RecommendationSystemServer\\AuthApi\\AuthApi.csproj",
-      "packagesPath": "C:\\Users\\timur\\.nuget\\packages\\",
-      "outputPath": "C:\\Dev\\RecommendationSystemServer\\AuthApi\\obj\\",
+      "projectPath": "/home/timur/Dev/RecommendationSystemServer/AuthApi/AuthApi.csproj",
+      "packagesPath": "/home/timur/.nuget/packages/",
+      "outputPath": "/home/timur/Dev/RecommendationSystemServer/AuthApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\timur\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/timur/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -1513,13 +1513,7 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -1569,7 +1563,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.121/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
