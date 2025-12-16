@@ -32,7 +32,6 @@ public class AuthController : ControllerBase
         public string Password { get; init; }
     }
     
-    //public record SignUpRequest(string Email, string Password);
     public record LoginRequest(string Email, string Password);
     public record AuthResponse(string Token, string Email);
 
@@ -43,7 +42,6 @@ public class AuthController : ControllerBase
         var email = request.Email.Trim().ToLowerInvariant();
         Console.WriteLine($"Normalized email: {email}");
         
-        //TODO: add proper email validation
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);

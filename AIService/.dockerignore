@@ -1,0 +1,36 @@
+**/.git
+**/.gitignore
+**/.gitattributes
+
+**/.vscode
+**/.idea
+**/*.log
+
+# Python junk
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+
+# Local environments
+**/.venv
+**/venv
+**/env
+
+# Local data/secrets
+**/.env
+**/.env.*
+**/*.sqlite
+**/*.db
+
+# Build artifacts
+**/dist
+**/build
+**/*.egg-info
+
+docker-compose.yml
+docker-compose.*.yml
+README*

@@ -1,0 +1,28 @@
+**/.git
+**/.gitignore
+**/.gitattributes
+
+**/.vs
+**/.vscode
+**/.idea
+**/*.user
+**/*.suo
+**/*.cache
+**/*.log
+
+**/bin
+**/obj
+**/TestResults
+
+**/*.md
+
+# secrets / local env
+**/.env
+**/.env.*
+**/secrets.json
+**/appsettings.*.json
+
+# Docker files that aren't required inside the image
+docker-compose.yml
+docker-compose.*.yml
+README*
