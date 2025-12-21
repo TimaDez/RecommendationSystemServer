@@ -2,11 +2,46 @@ using AnalyticsApi.Infrastructure;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Controllers
 builder.Services.AddControllers();
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        var jwtKey = builder.Configuration["Jwt:Key"];
+        var issuer = builder.Configuration["Jwt:Issuer"];
+        var audience = builder.Configuration["Jwt:Audience"];
+
+        if (string.IsNullOrWhiteSpace(jwtKey))
+            throw new InvalidOperationException(
+                "Missing configuration: Jwt:Key (Jwt__Key env var).");
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtKey)
+            ),
+
+            ValidateIssuer = true,
+            ValidIssuer = issuer,
+
+            ValidateAudience = true,
+            ValidAudience = audience,
+
+            ValidateLifetime = true
+        };
+    });
+
+builder.Services.AddAuthorization();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -30,6 +65,9 @@ builder.Services.AddDbContext<AnalyticsDbContext>(options =>
 });
 
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Swagger always on
 app.UseSwagger();

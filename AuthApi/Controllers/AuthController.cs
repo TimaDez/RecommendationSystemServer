@@ -88,7 +88,10 @@ public class AuthController : ControllerBase
     private string GenerateJwtToken(AuthUser user)
     {
         var jwtSection = _config.GetSection("Jwt");
-        var key       = jwtSection.GetValue<string>("Key")     ?? "super_dev_secret_change_me";
+        var key = jwtSection.GetValue<string>("Key");
+        if (string.IsNullOrWhiteSpace(key))
+            throw new InvalidOperationException("Missing configuration: Jwt:Key (Jwt__Key env var).");
+
         var issuer    = jwtSection.GetValue<string>("Issuer")  ?? "RecommendationSystem";
         var audience  = jwtSection.GetValue<string>("Audience")?? "RecommendationSystemClients";
 

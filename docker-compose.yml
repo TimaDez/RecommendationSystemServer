@@ -1,58 +1,29 @@
 services:
   postgres:
     image: postgres:16
-    #container_name: postgres-db
     restart: always
     environment:
-      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=recommendationdb;Username=admin;Password=7114"
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 7114
       POSTGRES_DB: recommendationdb
-    ports:
-      - "5433:5432"
+    # Remove this in production; keep only if you really need DB access from host
+    # ports:
+    #   - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - internal
 
   aiserver:
     build:
       context: ./AIService
       dockerfile: Dockerfile
-    #container_name: ai-service
     restart: always
-    ports:
-      - "8001:8000"
-
-  gatewayapi:
-    build:
-      context: .
-      dockerfile: GatewayApi/Dockerfile
-    #container_name: gateway-api
-    restart: always
-    depends_on:
-      - postgres
-      - aiserver
-    environment:
-      # DB connection string (inside Docker network host is 'postgres', not 'localhost')
-      - ConnectionStrings__Default=Host=postgres;Port=5432;Database=recommendationdb;Username=admin;Password=7114
-
-      # AI service base URL (inside Docker network use service name 'aiserver')
-      - AiService__BaseUrl=http://aiserver:8000
-
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "5081:8080"
-
-  analyticsapi:
-    build:
-      context: .
-      dockerfile: AnalyticsApi/Dockerfile
-    restart: always
-    depends_on:
-      - postgres
-    environment:
-      - ConnectionStrings__Default=Host=postgres;Port=5432;Database=recommendationdb;Username=admin;Password=7114
-    ports:
-      - "5091:8080"
+    # Remove host exposure in prod
+    # ports:
+    #   - "8001:8000"
+    networks:
+      - internal
 
   authapi:
     build:
@@ -64,12 +35,66 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__Default=Host=postgres;Port=5432;Database=recommendationdb;Username=admin;Password=7114
-      #- Jwt__Key=super_dev_secret_change_me
-      - Jwt__Key=TGWUqmt7Lh6Mt9yy5VDqwuZllFscXuoIi4YHDdtdKlt8=
+      - Jwt__Key=${JWT_KEY}
       - Jwt__Issuer=RecommendationSystem
       - Jwt__Audience=RecommendationSystemClients
+    # Remove host exposure in prod
+    # ports:
+    #   - "5071:8080"
+    networks:
+      - internal
+
+  analyticsapi:
+    build:
+      context: .
+      dockerfile: AnalyticsApi/Dockerfile
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Default=Host=postgres;Port=5432;Database=recommendationdb;Username=admin;Password=7114
+      - Jwt__Key=${JWT_KEY}
+      - Jwt__Issuer=RecommendationSystem
+      - Jwt__Audience=RecommendationSystemClients
+    # Remove host exposure in prod
+    # ports:
+    #   - "5091:8080"
+    networks:
+      - internal
+
+  gatewayapi:
+    build:
+      context: .
+      dockerfile: GatewayApi/Dockerfile
+    restart: always
+    depends_on:
+      - postgres
+      - aiserver
+      - authapi
+      - analyticsapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Default=Host=postgres;Port=5432;Database=recommendationdb;Username=admin;Password=7114
+      - AiService__BaseUrl=http://aiserver:8000
+
+      # Gateway needs JWT config too (to validate incoming requests)
+      - Jwt__Key=${JWT_KEY}
+      - Jwt__Issuer=RecommendationSystem
+      - Jwt__Audience=RecommendationSystemClients
+
+      # URLs Gateway will use to call internal services
+      - Services__AuthBaseUrl=http://authapi:8080
+      - Services__AnalyticsBaseUrl=http://analyticsapi:8080
     ports:
-      - "5071:8080"
+      - "5081:8080"
+    networks:
+      - public
+      - internal
+
+networks:
+  public:
+  internal:
 
 volumes:
   pgdata:

@@ -1,6 +1,9 @@
 using GatewayApi.Infrastructure;
 using GatewayApi.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +24,42 @@ builder.Services.AddHttpClient<RecommendationClient>(client =>
     client.BaseAddress = new Uri(aiBaseUrl);
 });
 
+// ✅ STEP 4: JWT Authentication + Authorization 
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        var jwtKeyRaw = builder.Configuration["Jwt:Key"];
+        if (string.IsNullOrWhiteSpace(jwtKeyRaw))
+            throw new InvalidOperationException("Missing configuration: Jwt:Key (Jwt__Key env var).");
+
+        var issuer = builder.Configuration["Jwt:Issuer"];
+        var audience = builder.Configuration["Jwt:Audience"];
+
+        if (string.IsNullOrWhiteSpace(jwtKeyRaw))
+            throw new InvalidOperationException("Missing configuration: Jwt:Key (Jwt__Key env var).");
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKeyRaw)),
+
+            ValidateIssuer = true,
+            ValidIssuer = issuer,
+
+            ValidateAudience = true,
+            ValidAudience = audience,
+
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.FromSeconds(30)
+        };
+    });
+
+builder.Services.AddReverseProxy()
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Apply migrations automatically on startup (dev-friendly)
@@ -38,6 +77,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// ✅ STEP 4: middleware order matters
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapReverseProxy();  // routes like /api/Users -> analyticsapi
 app.MapControllers();
 app.MapGet("/", () => "Gateway API is running");
 

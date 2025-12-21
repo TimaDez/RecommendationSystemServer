@@ -17,28 +17,6 @@ public class UsersController : ControllerBase
         _db = db;
     }
 
-    // [HttpPost]
-    // public async Task<ActionResult<UserResponse>> Create([FromBody] CreateUserRequest request)
-    // {
-    //     var user = new User
-    //     {
-    //         Name = request.Name,
-    //         CreatedAt = DateTime.UtcNow
-    //     };
-    //
-    //     _db.Users.Add(user);
-    //     await _db.SaveChangesAsync();
-    //
-    //     var response = new UserResponse
-    //     {
-    //         Id = user.Id,
-    //         Name = user.Name,
-    //         CreatedAt = user.CreatedAt
-    //     };
-    //
-    //     return CreatedAtAction(nameof(GetById), new { id = user.Id }, response);
-    // }
-
     [HttpPost]
     public async Task<ActionResult<CreateUserResponse>> Create([FromBody] CreateUserRequest request)
     {
