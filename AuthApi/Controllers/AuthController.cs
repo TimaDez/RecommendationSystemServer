@@ -6,6 +6,10 @@ using AuthApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+
 namespace AuthApi.Controllers;
 
 [ApiController]
@@ -36,6 +40,7 @@ public class AuthController : ControllerBase
     public record AuthResponse(string Token, string Email);
 
     [HttpPost("signup")]
+    [AllowAnonymous] // ✅ explicitly allow anonymous access
     public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
     {
         Console.WriteLine($"User input email: {request.Email}, password: {request.Password}");
@@ -67,6 +72,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
+    [AllowAnonymous] // ✅ explicitly allow anonymous access
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
         var email = request.Email.Trim().ToLowerInvariant();
@@ -98,12 +104,25 @@ public class AuthController : ControllerBase
         var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         var creds      = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
+        var adminEmailsRaw = _config["Admin:Emails"] ?? "";
+        var adminEmails = adminEmailsRaw
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Select(x => x.ToLowerInvariant())
+            .ToHashSet();
+
+        var isAdmin = adminEmails.Contains(user.Email.ToLowerInvariant());
+        
+        var claims = new List<Claim>
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim("userId", user.Id.ToString())
         };
+
+        if (isAdmin)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+        }
 
         var token = new JwtSecurityToken(
             issuer: issuer,

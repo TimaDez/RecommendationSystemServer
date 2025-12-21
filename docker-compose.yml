@@ -38,6 +38,8 @@ services:
       - Jwt__Key=${JWT_KEY}
       - Jwt__Issuer=RecommendationSystem
       - Jwt__Audience=RecommendationSystemClients
+      - Admin__Emails=tim@mail.com, admin@example.com
+
     # Remove host exposure in prod
     # ports:
     #   - "5071:8080"

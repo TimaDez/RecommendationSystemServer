@@ -1,11 +1,13 @@
 using AnalyticsApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AnalyticsApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class AnalyticsController : ControllerBase
 {
     private readonly AnalyticsDbContext _db;
