@@ -6,8 +6,6 @@ using AuthApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AuthApi.Controllers;
@@ -89,7 +87,32 @@ public class AuthController : ControllerBase
         return Ok(new AuthResponse(token, user.Email));
     }
 
-    // ===== Helpers =====
+    [HttpPost("signin")]
+    [AllowAnonymous]
+    public Task<IActionResult> SignIn([FromBody] LoginRequest request)
+    {
+        return Login(request);
+    }
+
+    [HttpGet("token")]
+    [Authorize]
+    public IActionResult TokenInfo()
+    {
+        var email = User.FindFirstValue(ClaimTypes.NameIdentifier)
+                    ?? User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+
+        var userId = User.FindFirstValue("userId");
+        var roles = User.FindAll(ClaimTypes.Role).Select(r => r.Value).ToArray();
+
+        return Ok(new
+        {
+            email,
+            userId,
+            roles
+        });
+    }
+
+// ===== Helpers =====
 
     private string GenerateJwtToken(AuthUser user)
     {
@@ -128,7 +151,8 @@ public class AuthController : ControllerBase
             issuer: issuer,
             audience: audience,
             claims: claims,
-            expires: DateTime.UtcNow.AddHours(2),
+            //expires: DateTime.UtcNow.AddMinutes(15),
+            expires: DateTime.UtcNow.AddDays(7),
             signingCredentials: creds);
 
         return new JwtSecurityTokenHandler().WriteToken(token);

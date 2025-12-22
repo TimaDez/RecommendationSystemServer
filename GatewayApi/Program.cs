@@ -60,7 +60,18 @@ builder.Services.AddReverseProxy()
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevCors", policy =>
+            policy.WithOrigins("http://localhost:5173")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+        );
+});
+
 var app = builder.Build();
+
+app.UseCors("DevCors");
 
 // Apply migrations automatically on startup (dev-friendly)
 using (var scope = app.Services.CreateScope())
