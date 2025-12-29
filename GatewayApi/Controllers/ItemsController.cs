@@ -10,7 +10,13 @@ namespace GatewayApi.Controllers;
 [Route("api/[controller]")]
 public class ItemsController : ControllerBase
 {
+    #region Private members
+
     private readonly AppDbContext _db;
+
+    #endregion
+
+    #region Methods
 
     public ItemsController(AppDbContext db)
     {
@@ -20,6 +26,8 @@ public class ItemsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<ItemResponse>> Create([FromBody] CreateItemRequest request)
     {
+        Console.WriteLine($"SERVER received JSON -> DTO: {System.Text.Json.JsonSerializer.Serialize(request)}");
+
         var item = new Item
         {
             Name = request.Name,
@@ -29,14 +37,36 @@ public class ItemsController : ControllerBase
         _db.Items.Add(item);
         await _db.SaveChangesAsync();
 
-        var response = new ItemResponse
-        {
-            Id = item.Id,
-            Name = item.Name,
-            Category = item.Category
-        };
+        var response = new ItemResponse(
+            item.Id,
+            item.Name,
+            item.Category
+        );
 
         return CreatedAtAction(nameof(GetById), new { id = item.Id }, response);
+    }
+
+    [HttpPut("{id:int}")] // ✅ NEW
+    public async Task<ActionResult<ItemResponse>> Update(int id, [FromBody] UpdateItemRequest request) // ✅ NEW
+    {
+        var item = await _db.Items.FindAsync(id); // ✅ NEW
+        if (item is null) // ✅ NEW
+        {
+            return NotFound();
+        }
+
+        item.Name = request.Name; // ✅ NEW
+        item.Category = request.Category; // ✅ NEW
+
+        await _db.SaveChangesAsync(); // ✅ NEW
+
+        var response = new ItemResponse( // ✅ NEW
+            item.Id,
+            item.Name,
+            item.Category
+        );
+
+        return Ok(response); // ✅ NEW
     }
 
     [HttpGet("{id:int}")]
@@ -48,12 +78,11 @@ public class ItemsController : ControllerBase
             return NotFound();
         }
 
-        var response = new ItemResponse
-        {
-            Id = item.Id,
-            Name = item.Name,
-            Category = item.Category
-        };
+        var response = new ItemResponse(
+            item.Id,
+            item.Name,
+            item.Category
+        );
 
         return Ok(response);
     }
@@ -63,12 +92,11 @@ public class ItemsController : ControllerBase
     {
         var items = await _db.Items
             .OrderBy(i => i.Id)
-            .Select(i => new ItemResponse
-            {
-                Id = i.Id,
-                Name = i.Name,
-                Category = i.Category
-            })
+            .Select(i => new ItemResponse(
+                i.Id,
+                i.Name,
+                i.Category
+            ))
             .ToListAsync();
 
         return Ok(items);
@@ -87,4 +115,6 @@ public class ItemsController : ControllerBase
         await _db.SaveChangesAsync();
         return NoContent();
     }
+
+    #endregion
 }

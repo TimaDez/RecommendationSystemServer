@@ -209,3 +209,13 @@ C:/Dev/RecommendationSystem/GatewayApi/obj/Debug/net8.0/ref/GatewayApi.dll
 /home/timur/Dev/RecommendationSystemServer/GatewayApi/obj/Debug/net8.0/GatewayApi.pdb
 /home/timur/Dev/RecommendationSystemServer/GatewayApi/obj/Debug/net8.0/GatewayApi.genruntimeconfig.cache
 /home/timur/Dev/RecommendationSystemServer/GatewayApi/obj/Debug/net8.0/ref/GatewayApi.dll
+/home/timur/Dev/RecommendationSystemServer/GatewayApi/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/timur/Dev/RecommendationSystemServer/GatewayApi/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/home/timur/Dev/RecommendationSystemServer/GatewayApi/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/timur/Dev/RecommendationSystemServer/GatewayApi/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/home/timur/Dev/RecommendationSystemServer/GatewayApi/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/home/timur/Dev/RecommendationSystemServer/GatewayApi/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/home/timur/Dev/RecommendationSystemServer/GatewayApi/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/home/timur/Dev/RecommendationSystemServer/GatewayApi/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/home/timur/Dev/RecommendationSystemServer/GatewayApi/bin/Debug/net8.0/System.IO.Hashing.dll
+/home/timur/Dev/RecommendationSystemServer/GatewayApi/bin/Debug/net8.0/Yarp.ReverseProxy.dll
